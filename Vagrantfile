@@ -13,6 +13,21 @@ Vagrant.configure(2) do |config|
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "Ubuntu_14.04_64"
+  
+  # Use Vagrant Omnibus plugin to get chef   
+  config.omnibus.chef_version = :latest
+
+  # Configure port forwarding
+  config.vm.network :private_network, type: 'dhcp'
+  config.vm.network :forwarded_port, guest: 3000, host: 3000
+  config.vm.synced_folder './code', '/home/vagrant/code', nfs: true
+  
+  # Chef provisioning
+  config.vm.provision :chef_solo do |chef|
+    chef.cookbooks_path = ['chef/cookbooks/cocoon']
+    #chef.add_recipe 'recipe[cocoon::default]'
+    chef.add_recipe 'default'
+  end
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
