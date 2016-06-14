@@ -6,5 +6,7 @@
 #
 
 #include_recipe 'cocoon::_ruby'
-#include_recipe 'cocoon::_postgres'
+include_recipe 'cocoon::_postgres'
 include_recipe 'cocoon::_node'
+
+package "vim"

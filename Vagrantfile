@@ -15,18 +15,20 @@ Vagrant.configure(2) do |config|
   config.vm.box = "Ubuntu_14.04_64"
   
   # Use Vagrant Omnibus plugin to get chef   
-  config.omnibus.chef_version = :latest
+  #config.omnibus.chef_version = :latest
+  #config.omnibus.chef_version = "12.11.18"
+  config.omnibus.chef_version = "12.10.24"
 
   # Configure port forwarding
-  config.vm.network :private_network, type: 'dhcp'
-  config.vm.network :forwarded_port, guest: 3000, host: 3000
-  config.vm.synced_folder './code', '/home/vagrant/code', nfs: true
+  #config.vm.network :private_network, type: 'dhcp'
+  #config.vm.network :forwarded_port, guest: 3000, host: 3000
+  #config.vm.synced_folder './code', '/home/vagrant/code', nfs: true
   
   # Chef provisioning
   config.vm.provision :chef_solo do |chef|
-    chef.cookbooks_path = ['chef/cookbooks/cocoon']
+    #chef.cookbooks_path = ['chef/cookbooks']
     #chef.add_recipe 'recipe[cocoon::default]'
-    chef.add_recipe 'default'
+    chef.add_recipe 'cocoon'
   end
 
   # Disable automatic box update checking. If you disable this, then
